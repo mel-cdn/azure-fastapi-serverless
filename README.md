@@ -10,13 +10,14 @@ $ git clone https://github.com/mel-cdn/az-fastapi-serverless.git
 $ cd az-fastapi-serverless
 
 # Install pipenv (environment manager)
-$ pip install pipenv
+$ pip install virtualenv
 
 # Create virtual environment (make sure you have python 3.11)
-$ pipenv shell
+$ virtualenv venv
 
 # Install dependencies
-$ pipenv install
+$ pip install -r requirements.txt
+$ pip install -r requirements-dev.txt
 
 # Fire up local app server
 $ uvicorn app.main:app --reload --log-level debug
