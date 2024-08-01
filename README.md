@@ -1,8 +1,8 @@
 # Serverless FastAPI on Azure
 
-Little project to tests Serverless FastAPI deployment on Azure.
+Little project to explore Serverless FastAPI deployment on Azure.
 
-## Setup the project
+## Set up the project
 
 ```bash
 # Clone project
