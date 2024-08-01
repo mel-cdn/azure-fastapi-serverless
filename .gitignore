@@ -42,3 +42,9 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+.python_packages
+__pycache__
+venv
+
+VS Code
+.vscode

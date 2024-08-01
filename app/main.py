@@ -1,34 +1,16 @@
+import azure.functions as func
 from fastapi import FastAPI
-from pydantic import BaseModel
+
+from app.routers import users
 
 app = FastAPI()
-
-
-class Item(BaseModel):
-    id: int
-    name: str
+app.include_router(users.router, prefix='/users', tags=['Users'])
 
 
 @app.get("/")
-def root():
-    return {"message": "API health at 100%."}
+async def health():
+    return {"message": "The API is 100% ready."}
 
 
-@app.get("/items")
-def get_items():
-    return {"message": f"{len([])} Items retrieved."}
-
-
-@app.get("/items/{itemId}")
-def get_item(item_id: int):
-    return {"message": f"[id={item_id}] Item retrieved."}
-
-
-@app.post("/items")
-def add_item(item: Item):
-    return {"message": f"[id={item.id}] New item '{item.name}' added."}
-
-
-@app.delete("/items/{itemId}")
-def delete_item(item_id: int):
-    return {"message": f"[id={item_id}] Item deleted."}
+async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+    return await func.AsgiMiddleware(app).handle_async(req, context)
