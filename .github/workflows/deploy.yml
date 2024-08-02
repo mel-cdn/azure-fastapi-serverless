@@ -40,22 +40,21 @@ jobs:
           --name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} \
           --location japaneast \
-          --sku Standard_LRS
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          --sku Standard_LRS        
 
-      - name: Deploy to Azure Functions
+      - name: Create Function App
         run: |
-          az functionapp deployment source config-zip \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} \
-            --name ${{ secrets.AZURE_FUNCTION_APP_NAME }} \
-            --src function_app.zip
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          az functionapp create \
+          --consumption-plan-location japaneast \
+          --runtime python \
+          --runtime-version 3.11 \
+          --functions-version 4 \
+          --name demo-fastapi-serverless \
+          --os-type linux \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} \
+          --storage-account ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}        
 
       - name: Publish Function App
         run: |
-          func azure functionapp publish ${{ secrets.AZURE_FUNCTION_APP_NAME }}
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          func azure functionapp publish ${{ secrets.AZURE_FUNCTION_APP_NAME }}        
 
