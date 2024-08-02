@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 from app.routers import user
 
-app = FastAPI(title='FastAPI Serverless Azure Function App')
+app = FastAPI(title='A Serverless FastAPI on Azure Function App')
 app.include_router(user.router, prefix="/users", tags=["Users"])
 
 
