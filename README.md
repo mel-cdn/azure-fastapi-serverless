@@ -1,5 +1,8 @@
 # Serverless FastAPI on Azure
 
+[![Build Status](https://github.com/mel-cdn/azure-fastapi-serverless/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/mel-cdn/azure-fastapi-serverless/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Little project to explore Serverless FastAPI deployment on Azure.
 
 With simple deployment workflow using GitHub Actions.
