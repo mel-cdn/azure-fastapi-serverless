@@ -1,4 +1,4 @@
-# Serverless FastAPI on Azure
+# Serverless FastAPI on Azure Function App
 
 [![Build Status](https://github.com/mel-cdn/azure-fastapi-serverless/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/mel-cdn/azure-fastapi-serverless/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -151,24 +151,4 @@ $ az functionapp create \
 
 # Publish Function App
 $ func azure functionapp publish <your-function-app-name-fns>
-```
-
-## CI/CD using GitHub Actions
-
-Deployment workflow can be found [here](.github/workflows/deploy.yml).
-
-Secrets `AZURE_CREDENTIALS` schema:
-```json
-{
-  "clientId": "<client-id>",
-  "clientSecret": "<client-secret>",
-  "subscriptionId": "<subscription-id>",
-  "tenantId": "<tenant-id>",
-  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
-  "resourceManagerEndpointUrl": "https://management.azure.com/",
-  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
-  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
-  "galleryEndpointUrl": "https://gallery.azure.com/",
-  "managementEndpointUrl": "https://management.core.windows.net/"
-}
 ```
