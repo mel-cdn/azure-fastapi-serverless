@@ -1,4 +1,4 @@
-name: Deploy Serverless FastAPI to Azure Functions
+name: Deploy Serverless FastAPI to Azure Function App
 
 on:
   push:
@@ -27,18 +27,28 @@ jobs:
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-      - name: Log in to Azure
-        run: az login --service-principal -u ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Create Storage Account
+        run: |
+          az storage account create \
+          --name ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }} \
+          --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} \
+          --location japaneast \
+          --sku Standard_LRS
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Functions
         run: |
           az functionapp deployment source config-zip \
-            --resource-group <your-resource-group> \
-            --name ${{ secrets.AZURE_FUNCTIONAPP_NAME }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP_NAME }} \
+            --name ${{ secrets.AZURE_FUNCTION_APP_NAME }} \
             --src function_app.zip
         env:
           AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Clean up
+      - name: Publish Function App
         run: |
-          rm function_app.zip
+          func azure functionapp publish ${{ secrets.AZURE_FUNCTION_APP_NAME }}
+        env:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
