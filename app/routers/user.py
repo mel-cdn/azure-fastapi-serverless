@@ -31,7 +31,7 @@ async def create_user(user: dict):
     logging.info(f"Creating user: user")
     try:
         fake_db[user["userId"]] = user
-        return {"message": "OK"}
+        return user
     except KeyError:
         return JSONResponse(status_code=400, content={"message": "Missing key: 'userId'"})
 
@@ -45,7 +45,7 @@ async def update_user(
     try:
         user.pop("userId", None)
         fake_db[user_id].update(user)
-        return {"message": "OK"}
+        return fake_db[user_id]
     except KeyError:
         return JSONResponse(status_code=404, content={"message": "User not found."})
 

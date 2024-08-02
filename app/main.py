@@ -9,7 +9,7 @@ app.include_router(user.router, prefix="/users", tags=["Users"])
 
 @app.get("/")
 async def health():
-    return {"message": "The API is 100% ready."}
+    return {"message": "API health at 100%."}
 
 
 async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
