@@ -1,10 +1,10 @@
 import azure.functions as func
 from fastapi import FastAPI
 
-from app.routers import users
+from app.routers import user
 
 app = FastAPI()
-app.include_router(users.router, prefix='/users', tags=['Users'])
+app.include_router(user.router, prefix="/users", tags=["Users"])
 
 
 @app.get("/")

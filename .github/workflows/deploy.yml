@@ -1,4 +1,4 @@
-name: Deploy FastAPI to Azure Functions
+name: Deploy Serverless FastAPI to Azure Functions
 
 on:
   push:
