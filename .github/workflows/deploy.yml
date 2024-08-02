@@ -6,6 +6,28 @@ on:
       - main
 
 jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt            
+
+      - name: Run Pytest
+        run: |
+          python -m pytest
+
   build-and-deploy:
     runs-on: ubuntu-latest
 
@@ -26,6 +48,14 @@ jobs:
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash       
+
+      - name: Install Azure Functions Core Tools
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+          sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+          sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list'
+          sudo apt-get update -y
+          sudo apt-get install azure-functions-core-tools-4 -y
 
       - name: Log in to Azure
         run: |
