@@ -7,6 +7,7 @@ on:
 
 jobs:
   unit-tests:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +30,8 @@ jobs:
           python -m pytest
 
   build-and-deploy:
+    name: Build and Deploy Function App
+    needs: unit-tests
     runs-on: ubuntu-latest
 
     steps:
